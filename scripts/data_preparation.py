@@ -22,9 +22,11 @@ def load_and_process_files(directory):
                     data = json.load(file)
                     # Data cleaning and parsing
                     for entry in data:
-                        entry['title'] = clean_title(entry['title'])
-                        entry['timestamp'] = datetime.fromisoformat(entry['time'].replace('Z', '+00:00'))
-                        all_data.append(entry)
+                        if 'title' in entry and 'date_watched' in entry:
+                            entry['title'] = clean_title(entry['title'])
+                            # Parse date_watched field instead of time
+                            entry['timestamp'] = datetime.strptime(entry['date_watched'], '%Y-%m-%d %H:%M:%S')
+                            all_data.append(entry)
             except (json.JSONDecodeError, KeyError, ValueError) as e:
                 print(f"Error processing {filename}: {e}")
     df = pd.DataFrame(all_data)

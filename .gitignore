@@ -101,8 +101,22 @@ data/UserData_YouTube/
 data/*.json
 data/**/*.json
 
-# Output files (regenerated)
-output/cleaned_watch_history.csv
+# Personal Data Protection - DO NOT COMMIT ANY USER DATA
+data/
+data/**/*
+*.csv
+*.parquet
+*.json
+*.txt
+
+# All analysis outputs contain personal data
+output/
+output/**/*
+
+# Generated files
+*.py[regenerated]
 
 # Logs
 *.log
+
+megalinter-reports/
